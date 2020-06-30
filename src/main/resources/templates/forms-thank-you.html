@@ -1,0 +1,12 @@
+{@ch.romix.progressive.enhancement.forms.FormsTemplateData data}
+{#include layout}
+{#title}Formulare{/title}
+{#body}
+
+<section>
+  <h2>Vielen Dank für Ihre Registrierung</h2>
+  <p>Vielen Dank, {data.firstname} {data.lastname}. Du hast dich mit {data.personCount} Personen am {data.date.format} um {data.time} Uhr angemeldet.</p>
+</section>
+
+{/body}
+{/include}

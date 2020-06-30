@@ -1,0 +1,57 @@
+{@ch.romix.progressive.enhancement.list.ListFilteringTemplateData data}
+{#include layout}
+{#title}Listen filtern{/title}
+{#body}
+<div>
+  <h2>Eine Liste mit Suchtext filtern</h2>
+
+  <p>Das folgende Suchfeld filtert eine Liste von einflussreichen Programmiererinnen und
+    Programmierern. Die Liste wird serverseitig gefiltert. Das Formular schickt Unpoly automatisch
+    ab, sobald du in die Input-Box schreibst. Normalerweise führt das zu einem Neuaufbau der Seite.
+    Unpoly ersetzt aber nur die Liste der ProgrammiererInnen. Damit sparen wir uns das Herunterladen
+    und Parsen aller Dokumente ausser dem HTML (CSS, JavaScript, Bilder...). Beim Ersetzen von
+    kleinen Elementen im HTML ist der Browser ausserdem sehr performant.
+  </p>
+  <p>
+    Der Programmieraufwand dafür ist minim. Einzig die zwei hervorgehobenen Attribute sind dazu
+    nötig:</p>
+  <p>
+    <code>
+      &lt;form <strong>up-target=".filter-list"</strong> method="get" action="/list-filtering"
+      enctype="multipart/form-data"&gt;<br/>
+      &lt;input type="search" name="search" placeholder="Suche nach Namen"
+      <strong>up-autosubmit</strong>/&gt;<br/>
+      &lt;/form&gt;
+    </code>
+  </p>
+  <p>
+    Genau gleich verhält es sich beim Klick auf den Link:
+  </p>
+  <p>
+    <code>
+      &lt;a href="?search=Lin&programmer=Linus Torvalds"
+      <strong>up-target="r-programmer-portrait"</strong>&gt;Linus Torvalds&lt;/a&gt;
+    </code>
+  </p>
+  <form up-target=".filter-list" method="get" action="/list-filtering"
+        enctype="multipart/form-data">
+    <input type="search" name="search" placeholder="Suche nach Namen"
+           up-autosubmit/>
+  </form>
+  <r-two-columns>
+    <ul class="filter-list">
+      {#for programmer in data.list}
+      <li><a href="?search={data.searchTerm}&programmer={programmer}"
+             up-target="r-programmer-portrait">{programmer}</a></li>
+      {/for}
+    </ul>
+    <r-programmer-portrait>
+      {#if data.wikipediaData != null}
+      {data.wikipediaData.raw}
+      <r-quelle>Quelle: <a href="{data.wikipediaUrl}">{data.wikipediaUrl}</a></r-quelle>
+      {/if}
+    </r-programmer-portrait>
+  </r-two-columns>
+</div>
+{/body}
+{/include}

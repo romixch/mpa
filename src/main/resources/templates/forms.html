@@ -1,0 +1,107 @@
+{@ch.romix.progressive.enhancement.forms.FormsTemplateData data}
+{@java.util.Map violations}
+{#include layout}
+{#title}Formulare{/title}
+{#body}
+
+<section>
+  <h2>Wozu Formulare?</h2>
+  <p>Formulare wuren in HTML designed um Benutzereingaben entgegenzunehmen. Damit sind nicht nur
+    Kontakt-Formulare gemeint. Jegliche Eingaben, welche den Status der Anwendung verändern, können
+    über Formulare abgebildet werden. Beispiele dazu sind:</p>
+  <ul>
+    <li>Button, der einen Artikel zum Warenkorb hinzufügt</li>
+    <li>Eingabe der Adresse um etwas auszuliefern</li>
+    <li>Eingabe von Datum und Uhrzeit für eine Teilnahme an einem Event</li>
+    <li>Eine Suchmaske zum Filtern einer Ergebnisliste</li>
+  </ul>
+</section>
+<section>
+  <h2>Validierungen</h2>
+  <p>Benutzereingaben müssen oft validiert werden. Dies können wir
+    erst beim Absenden des Formulars tun, oder wir lösen die Validierung bereits vorher aus, um dem
+    Benutzer schon früh Feedback zu geben. Das folgende Formular soll exemplarisch zeigen, wie
+    Formulare und Validierungen mit diesem Ansatz funktionieren.</p>
+</section>
+
+<section class="form-section">
+  <form class="sample-form" up-target=".sample-form" up-transition="move-left"
+        method="post"
+        action="/forms">
+    <r-field up-fieldset>
+      <label for="person-count">Anzahl Personen:</label>
+      <input id="person-count" name="person-count" type="number" value="{data.personCount}"
+             up-validate=".person-count-errors, r-field:has([name=time])">
+      <r-validtion-error class="person-count-errors">
+        {#if violations[personCount]}
+        {violations[personCount]}
+        {/if}
+      </r-validtion-error>
+    </r-field>
+    <r-field up-fieldset>
+      <label for="date">Datum:</label>
+      <input id="date" name="date" type="date" value="{data.date}" up-validate>
+      <r-validtion-error class="date-validation">
+        {#if violations[date]}
+        {violations[date]}
+        {/if}
+      </r-validtion-error>
+    </r-field>
+    <r-field up-fieldset>
+      <label>Zeit:</label>
+      <fieldset>
+        {#for time in data.availableTimes}
+        <label>
+          <input type="radio" name="time" id="{time}" value="{time}" {#if time is data.time}checked{/if} up-validate>
+          <r-input-box>{time}</r-input-box>
+        </label>
+        {/for}
+      </fieldset>
+      <r-validtion-error>
+        {#if violations[time]}
+        {violations[time]}
+        {/if}
+      </r-validtion-error>
+    </r-field>
+    <r-field up-fieldset>
+      <label for="firstname">Vorname:</label>
+      <input id="firstname" name="firstname" type="text" value="{data.firstname}" up-validate>
+      <r-validtion-error>
+        {#if violations[firstname]}
+        {violations[firstname]}
+        {/if}
+      </r-validtion-error>
+    </r-field>
+    <r-field up-fieldset>
+      <label for="lastname">Nachname:</label>
+      <input id="lastname" name="lastname" type="text" value="{data.lastname}" up-validate>
+      <r-validtion-error>
+        {#if violations[lastname]}
+        {violations[lastname]}
+        {/if}
+      </r-validtion-error>
+    </r-field>
+    <r-field up-fieldset>
+      <label for="zip">PLZ:</label>
+      <input id="zip" name="zip" type="text" value="{data.zip}" up-validate="r-field:has([name=zip]), #city">
+      <r-validtion-error>
+        {#if violations[zip]}
+        {violations[zip]}
+        {/if}
+      </r-validtion-error>
+    </r-field>
+    <r-field up-fieldset>
+      <label for="city">Ort:</label>
+      <input id="city" name="city" type="text" value="{data.city}" up-validate>
+      <r-validtion-error>
+        {#if violations[city]}
+        {violations[city]}
+        {/if}
+      </r-validtion-error>
+    </r-field>
+    <button type="submit">Weiter</button>
+  </form>
+</section>
+
+{/body}
+{/include}

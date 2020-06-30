@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Für eine simple Web-Entwicklung: {#insert title}{/}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="/webjars/unpoly/0.61.1/dist/unpoly.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/webjars/unpoly/0.61.1/dist/unpoly.min.css">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+
+</head>
+<body>
+<h1>Für eine simple Web-Entwicklung</h1>
+<nav up-nav>
+  <a class="menu-item" href="/" up-preload up-target="main" up-transition="cross-fade">Home</a>
+  <a class="menu-item" href="/forms" up-alias="/forms/*" up-preload up-target="main"
+     up-transition="cross-fade">Formulare</a>
+  <a class="menu-item" href="/list-filtering" up-alias="/list-filtering?*" up-preload up-target="main"
+     up-transition="cross-fade">Liste filtern</a>
+  <a class="menu-item" href="/stack" up-preload up-target="main"
+     up-transition="cross-fade">Stack</a>
+</nav>
+<main>
+  {#insert body}Kein Body hier!{/}
+</main>
+</body>
+</html>

@@ -1,0 +1,58 @@
+{#include layout}
+{#title}Verwendete Stack{/title}
+{#body}
+
+<article>
+  <section>
+    <h2>Server</h2>
+    <p>Weil das hier eine normale Webseite ist, spielt die Musik hauptsächlich auf dem Server. Doch
+      auch da ist es nicht sonderlich kompliziert. Eigentlich braucht es nur eine beliebige
+      Template-Engine. Damit wir Teile wiederverwenden können, sollte sie die Möglichkeit bieten,
+      Komponenten zu verwenden.</p>
+    <p>In diesem Beispiel hier habe ich <a href="https://quarkus.io/">Quarkus</a> und <a
+        href="https://quarkus.io/guides/qute">Qute</a> verwendet. Quarkus basiert auf der Java
+      Virtual Machine. Der Server startet nach Änderungen automatisch neu (&lt; 1 Sekunde), was bei
+      einer Template-Engine praktisch ist. Anwendungen lassen sich auch in native Binaries
+      kompilieren. Der Server startet dann innert Millisekunden. Das hat mir die Möglichkeit
+      gegeben, die Anwendung auf <a href="https://cloud.google.com/run">Google Cloud Run</a>
+      auszuführen. Das ist eine Serverless-Umgebung, der ich belibeige Docker-Images zur Ausführung
+      geben kann.</p>
+  </section>
+
+  <section>
+    <h2>State Management</h2>
+    <p>Der State der Webanwendung wird auf dem Server verwaltet. Das kommt daher, dass der Client ja
+      hauptsächlich mit HTML und CSS auskommen soll. Bevor Du jetzt aber rufst "Das skaliert ja
+      nicht!": Der State ist ganz einfach in einem Cookie abgespeichert. Der Server bleibt also
+      stateless. Falls der State grösser würde und ich den nicht immer über die Leitung schicken
+      will, kann ich auf <a href="https://redis.io/">Redis</a> oder <a
+          href="https://memcached.org/">Memcached</a> ausweichen. Google bietet ebenfalls einen
+      Dienst an, der mit beiden Tools kompatibel ist, aber in der Google-Cloud vewaltet wird: <a
+          href="https://cloud.google.com/memorystore">Memorystore</a></p>
+  </section>
+
+  <section>
+    <h2>Client-Library</h2>
+    <p>Hier kommt nun der Teil, von dem die meisten noch nichts gehört haben. Der Grund, warum sich
+      die Seite eher wie eine Single Page App anfühlt, ist <a href="https://unpoly.com/">Unpoly</a>.<br/>
+      Unpoly sorgt dafür, dass Links nicht die ganze Seite neu laden, sondern nur den Teil
+      auswechseln, der sich geändert hat. Das führt dazu, dass nur ein Teil des HTMLs wirklich
+      gerendert werden muss. Das CSS und JavaScript ist schon da. Unpoly macht obendrauf noch ein
+      Preload, sobald du mit der Maus auf einen Link im Menü fährst. Es unterstützt mich auch beim
+      Validieren und Abschicken von Formularen.
+    </p>
+    <p>Neben Unpoly gibt es noch eine Reihe anderer Libraries, die ähnliche Lösungen bieten. Hier
+      eine kleine Auswahl:</p>
+    <ul>
+      <li><a href="https://unpoly.com/">Unpoly</a></li>
+      <li><a href="https://github.com/turbolinks/turbolinks">Turbolink</a></li>
+      <li><a href="https://swup.js.org/">Swup</a></li>
+      <li><a href="https://barba.js.org/">Barba</a></li>
+      <li><a href="https://github.com/miguel-perez/smoothState.js">SmoothState</a></li>
+      <li><a href="https://github.com/MoOx/pjax">pjax</a></li>
+    </ul>
+  </section>
+</article>
+
+{/body}
+{/include}
