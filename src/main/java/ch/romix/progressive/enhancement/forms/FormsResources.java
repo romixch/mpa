@@ -26,6 +26,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
+import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 @Path("/forms")
@@ -58,7 +59,7 @@ public class FormsResources {
   @Consumes(MediaType.MULTIPART_FORM_DATA)
   public Response postForm(@MultipartForm FormsPostData data,
       @HeaderParam("X-Up-Validate") String validate,
-      @HeaderParam("x-forwarded-proto") String xForwardedProto) {
+      @HeaderParam("Origin") String origin) {
     FormsTemplateData templateData = data.toTemplateData();
     Set<ConstraintViolation<FormsTemplateData>> violations = validator.validate(templateData);
     if (validate != null || !violations.isEmpty()) {
@@ -68,8 +69,8 @@ public class FormsResources {
       return validateForm(templateData);
     } else {
       saveDataToSession(data);
-      final var scheme = xForwardedProto == null ? "http" : xForwardedProto;
-      URI uri = UriBuilder.fromPath("/forms/thankyou").scheme(scheme).build();
+      URI uri = UriBuilder.fromUri(origin).path("/forms/thankyou").build();
+      Logger.getLogger(getClass()).info("redirecting to " + uri.toString());
       return Response.seeOther(uri).build();
     }
   }
