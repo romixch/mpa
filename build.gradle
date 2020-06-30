@@ -14,6 +14,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-resteasy'
     implementation 'io.quarkus:quarkus-resteasy-qute'
     implementation 'org.webjars.npm:unpoly:0.61.1'
+    implementation 'org.webjars.npm:date-input-polyfill:2.14.0'
     implementation 'org.jboss.resteasy:resteasy-multipart-provider'
     implementation 'io.quarkus:quarkus-hibernate-validator'
     implementation 'org.jsoup:jsoup:1.13.1'
