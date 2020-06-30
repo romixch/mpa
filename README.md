@@ -1,35 +1,45 @@
-# ch.romix.progressive.enhancement project
+# HTML to the wire
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Für eine simple Web-Entwicklung
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+Dieses Beispiel-Projekt soll zeigen, wie auch jenseits von React, Angular und Vue ganz simple und 
+trotzdem moderne Web-Applikationen entwickelt werden können.
 
-## Running the application in dev mode
+Die Web-App läuft unter https://pe.romix.ch/. Dort findest du auch mehr zu diesem Thema.  
 
-You can run your application in dev mode that enables live coding using:
+## Anwendung starten
+
+Die Anwendung ist in Java auf Quarkus geschrieben. Mit folgendem Befehl kannst du den Dev-Server
+starten. Die Anwendung startet automatisch neu, wenn du den Code änderst. So, wie du das vielleicht 
+aus NodeJS-Anwendungen kennst.
+
 ```
 ./gradlew quarkusDev
 ```
 
-## Packaging and running the application
+## Packaging
 
-The application can be packaged using `./gradlew quarkusBuild`.
-It produces the `ch.romix.progressive.enhancement-1.0.0-SNAPSHOT-runner.jar` file in the `build` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/lib` directory.
+So erstellst du ein Jar-File der Anwendung: `./gradlew quarkusBuild`.
+Es erstellt `ch.romix.progressive.enhancement-1.0.0-SNAPSHOT-runner.jar` im Ordner `build`.
+Dies ist kein _über-jar_. Die Abhängigkeiten landen im Verzeichnis `build/lib`.
 
-The application is now runnable using `java -jar build/ch.romix.progressive.enhancement-1.0.0-SNAPSHOT-runner.jar`.
+Du kannst die Anwendung nun starten mit `java -jar build/ch.romix.progressive.enhancement-1.0.0-SNAPSHOT-runner.jar`.
 
-If you want to build an _über-jar_, just add the `--uber-jar` option to the command line:
+Um ein über-jar zu erstellen, füge die Option `--uber-jar` hinzu:
 ```
 ./gradlew quarkusBuild --uber-jar
 ```
 
-## Creating a native executable
+## Ein Native Image erstellen
 
-You can create a native executable using: `./gradlew build -Dquarkus.package.type=native`.
+Wenn du GraalVM 19 installiert hast, kannst du ein Natives-Binary erstellen mit: `./gradlew build -Dquarkus.package.type=native`.
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: `./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true`.
+Hast du keine GraalVM installiert, kannst du die GraalVM auch einfach über Docker verwenden lassen: `./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true`.
 
-You can then execute your native executable with: `./build/ch.romix.progressive.enhancement-1.0.0-SNAPSHOT-runner`
+Das Binary startest du dann einfach mit folgendem Befehl (nur Linux): `./build/ch.romix.progressive.enhancement-1.0.0-SNAPSHOT-runner`
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling#building-a-native-executable.
+Mehr über Native Images von Quarkus findest du hier: https://quarkus.io/guides/gradle-tooling#building-a-native-executable.
+
+## Deployment
+
+Ein kleines Skript zum Builden und Deployen in die Google Cloud ist in `deploy.sh`.
