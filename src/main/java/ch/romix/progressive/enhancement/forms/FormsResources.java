@@ -8,8 +8,8 @@ import io.quarkus.qute.api.ResourcePath;
 import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -63,8 +63,8 @@ public class FormsResources {
     FormsTemplateData templateData = data.toTemplateData();
     Set<ConstraintViolation<FormsTemplateData>> violations = validator.validate(templateData);
     if (validate != null || !violations.isEmpty()) {
-      if ("zip".equals(validate)) {
-        updateCity(templateData);
+      if ("zipcity".equals(validate)) {
+        updateZipCity(templateData);
       }
       return validateForm(templateData);
     } else {
@@ -75,10 +75,10 @@ public class FormsResources {
     }
   }
 
-  private void updateCity(FormsTemplateData templateData) {
-    List<String> citiesByZip = zipService.getCityByZIP(templateData.getZip());
+  private void updateZipCity(FormsTemplateData templateData) {
+    Collection<String> citiesByZip = zipService.getCityByZIPAndCity(templateData.getZipcity());
     if (citiesByZip.size() == 1) {
-      templateData.setCity(citiesByZip.get(0));
+      templateData.setZipcity(citiesByZip.iterator().next());
     }
   }
 
@@ -88,7 +88,7 @@ public class FormsResources {
   public TemplateInstance thankyou() {
     FormsTemplateData templateData = new FormsTemplateData(sessionData.getPersonCount(),
         sessionData.getDate(), sessionData.getTime(), sessionData.getFirstname(), sessionData.getLastname(),
-        sessionData.getZip(), sessionData.getCity());
+        sessionData.getZipcity());
     return thankyou.data("data", templateData);
   }
 
@@ -98,8 +98,7 @@ public class FormsResources {
     sessionData.setTime(data.time);
     sessionData.setFirstname(data.firstname);
     sessionData.setLastname(data.lastname);
-    sessionData.setZip(data.zip);
-    sessionData.setCity(data.city);
+    sessionData.setZipcity(data.zipcity);
   }
 
   private Response validateForm(FormsTemplateData templateData) {

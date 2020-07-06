@@ -82,20 +82,11 @@
       </r-validtion-error>
     </r-field>
     <r-field up-fieldset>
-      <label for="zip">PLZ:</label>
-      <input id="zip" name="zip" type="text" value="{data.zip}" up-validate="r-field:has([name=zip]), #city">
+      <label for="zipcity">PLZ und Ort:</label>
+      <input id="zipcity" name="zipcity" type="text" value="{data.zipcity}" up-validate>
       <r-validtion-error>
-        {#if violations[zip]}
-        {violations[zip]}
-        {/if}
-      </r-validtion-error>
-    </r-field>
-    <r-field up-fieldset>
-      <label for="city">Ort:</label>
-      <input id="city" name="city" type="text" value="{data.city}" up-validate>
-      <r-validtion-error>
-        {#if violations[city]}
-        {violations[city]}
+        {#if violations[zipcity]}
+        {violations[zipcity]}
         {/if}
       </r-validtion-error>
     </r-field>

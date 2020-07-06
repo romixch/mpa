@@ -11,8 +11,7 @@ public class SessionData {
   private String time;
   private String firstname;
   private String lastname;
-  private String zip;
-  private String city;
+  private String zipcity;
 
   public int getPersonCount() {
     return personCount;
@@ -54,19 +53,11 @@ public class SessionData {
     this.lastname = lastname;
   }
 
-  public String getZip() {
-    return zip;
+  public String getZipcity() {
+    return zipcity;
   }
 
-  public void setZip(String zip) {
-    this.zip = zip;
-  }
-
-  public String getCity() {
-    return city;
-  }
-
-  public void setCity(String city) {
-    this.city = city;
+  public void setZipcity(String zipcity) {
+    this.zipcity = zipcity;
   }
 }

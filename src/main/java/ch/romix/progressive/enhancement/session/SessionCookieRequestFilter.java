@@ -27,8 +27,7 @@ public class SessionCookieRequestFilter implements ContainerRequestFilter {
     setSessionDataForString("time", sessionData::setTime);
     setSessionDataForString("firstname", sessionData::setFirstname);
     setSessionDataForString("lastname", sessionData::setLastname);
-    setSessionDataForString("zip", sessionData::setZip);
-    setSessionDataForString("city", sessionData::setCity);
+    setSessionDataForString("zipcity", sessionData::setZipcity);
   }
 
   private void setSessionDataForString(String cookieName, Consumer<String> setter) {

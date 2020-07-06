@@ -29,13 +29,9 @@ public class FormsPostData {
   @PartType(MediaType.TEXT_PLAIN)
   String lastname;
 
-  @FormParam("zip")
+  @FormParam("zipcity")
   @PartType(MediaType.TEXT_PLAIN)
-  String zip;
-
-  @FormParam("city")
-  @PartType(MediaType.TEXT_PLAIN)
-  String city;
+  String zipcity;
 
   public int getPersonCount() {
     int count = 0;
@@ -53,6 +49,6 @@ public class FormsPostData {
       parsedDate = null;
     }
 
-    return new FormsTemplateData(getPersonCount(), parsedDate, time, firstname, lastname, zip, city);
+    return new FormsTemplateData(getPersonCount(), parsedDate, time, firstname, lastname, zipcity);
   }
 }

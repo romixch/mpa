@@ -30,8 +30,7 @@ public class SessionCookieResponseFilter implements ContainerResponseFilter {
     setSettionDataForString(sessionData::getTime, "time");
     setSettionDataForString(sessionData::getFirstname, "firstname");
     setSettionDataForString(sessionData::getLastname, "lastname");
-    setSettionDataForString(sessionData::getZip, "zip");
-    setSettionDataForString(sessionData::getCity, "city");
+    setSettionDataForString(sessionData::getZipcity, "zipcity");
   }
 
   private void setSettionDataForInteger(Supplier<Integer> getter, String cookieName) {

@@ -24,18 +24,15 @@ public class FormsTemplateData {
   @NotBlank(message = "Wir benötigen Ihren Nachnamen um weiterzufahren")
   private String lastname;
 
-  @NotBlank(message = "Ohne PLZ geht nix")
-  private String zip;
-
-  @NotBlank(message = "Wir brauchen die Angabe einer Ortschaft")
-  private String city;
+  @NotBlank(message = "Ohne PLZ und Ort geht nix")
+  private String zipcity;
 
   public FormsTemplateData() {
   }
 
   public FormsTemplateData(int personCount, LocalDate date, String time, String firstname,
       String lastname,
-      String zip, String city) {
+      String zipcity) {
     this.personCount = personCount;
     this.date = date;
     if (getAvailableTimes().contains(time)) {
@@ -45,8 +42,7 @@ public class FormsTemplateData {
     }
     this.firstname = firstname;
     this.lastname = lastname;
-    this.zip = zip;
-    this.city = city;
+    this.zipcity = zipcity;
   }
 
   public List<String> getAvailableTimes() {
@@ -78,15 +74,11 @@ public class FormsTemplateData {
     return lastname;
   }
 
-  public String getZip() {
-    return zip;
+  public String getZipcity() {
+    return zipcity;
   }
 
-  public void setCity(String city) {
-    this.city = city;
-  }
-
-  public String getCity() {
-    return city;
+  public void setZipcity(String zipcity) {
+    this.zipcity = zipcity;
   }
 }
