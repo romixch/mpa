@@ -27,7 +27,8 @@
 <section class="form-section">
   <form class="sample-form" up-target=".sample-form" up-transition="move-left"
         method="post"
-        action="/forms">
+        action="/forms"
+        enctype="multipart/form-data">
     <r-field up-fieldset>
       <label for="person-count">Anzahl Personen:</label>
       <input id="person-count" name="person-count" type="number" value="{data.personCount}"
