@@ -56,7 +56,7 @@ public class FormsResources {
   }
 
   @POST
-  @Consumes(MediaType.MULTIPART_FORM_DATA)
+  @Consumes({MediaType.MULTIPART_FORM_DATA})
   public Response postForm(@MultipartForm FormsPostData data,
       @HeaderParam("X-Up-Validate") String validate,
       @HeaderParam("Origin") String origin) {

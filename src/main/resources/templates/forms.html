@@ -41,7 +41,7 @@
     </r-field>
     <r-field up-fieldset>
       <label for="date">Datum:</label>
-      <input id="date" name="date" type="date" value="{data.date}" up-validate>
+      <input id="date" name="date" type="date" placeholder="YYYY-MM-DD" value="{data.date}" up-validate>
       <r-validtion-error class="date-validation">
         {#if violations[date]}
         {violations[date]}
