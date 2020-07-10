@@ -1,8 +1,10 @@
 package ch.romix.progressive.enhancement.list;
 
 import io.quarkus.qute.Template;
-import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.api.ResourcePath;
+import io.quarkus.vertx.web.Route;
+import io.vertx.core.http.HttpMethod;
+import io.vertx.ext.web.RoutingContext;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,16 +12,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
+import javax.inject.Singleton;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-@Path("/list-filtering")
+@Singleton
 public class ListsResources {
 
   static List<Programmer> influencialProgrammers;
@@ -54,10 +52,10 @@ public class ListsResources {
   @ResourcePath("list-filtering.html")
   Template listFiltering;
 
-  @GET
-  @Produces(MediaType.TEXT_HTML)
-  public TemplateInstance listFiltering(@QueryParam("search") String search,
-      @QueryParam("programmer") String programmer) {
+  @Route(path = "list-filtering", methods = HttpMethod.GET)
+  public void listFiltering(RoutingContext rc) {
+    String search = rc.request().getParam("search");
+    String programmer = rc.request().getParam("programmer");
     List<String> programmers = influencialProgrammers.stream()
         .map(Programmer::getName)
         .filter(p -> search != null && p.toLowerCase().contains(search.toLowerCase()))
@@ -67,7 +65,7 @@ public class ListsResources {
     String wikiArticle = selectedProgrammer.map(this::getWikiArticle).orElse(null);
     ListFilteringTemplateData data = new ListFilteringTemplateData(search, programmers,
         wikiArticle, selectedProgrammer.map(p -> p.getWikipediaURL().toString()).orElse(""));
-    return listFiltering.data("data", data);
+    rc.response().end(listFiltering.data("data", data).render());
   }
 
   private String getWikiArticle(Programmer programmer) {

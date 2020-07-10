@@ -5,7 +5,13 @@ import ch.romix.progressive.enhancement.session.SessionData;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.api.ResourcePath;
+import io.quarkus.vertx.web.Route;
+import io.vertx.codegen.annotations.Nullable;
+import io.vertx.core.http.HttpMethod;
+import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.Session;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
@@ -13,24 +19,15 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
+import org.apache.http.client.utils.URIBuilder;
 import org.jboss.logging.Logger;
-import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
-@Path("/forms")
-public class FormsResources {
+@Singleton
+public class FormsRoute {
 
   @Inject
   Validator validator;
@@ -44,34 +41,32 @@ public class FormsResources {
   @Inject
   ZipService zipService;
 
-  @Inject
-  @RequestScoped
-  SessionData sessionData;
-
-  @GET
-  @Produces(MediaType.TEXT_HTML)
-  public TemplateInstance forms() {
+  @Route(path = "/forms", methods = HttpMethod.GET)
+  public void forms(RoutingContext rc) {
     FormsTemplateData templateData = new FormsTemplateData();
-    return forms.data("data", templateData).data("violations", Collections.EMPTY_MAP);
+    var templateInstance = forms.data("data", templateData)
+        .data("violations", Collections.EMPTY_MAP);
+    rc.response().end(templateInstance.render());
   }
 
-  @POST
-  @Consumes({MediaType.MULTIPART_FORM_DATA})
-  public Response postForm(@MultipartForm FormsPostData data,
-      @HeaderParam("X-Up-Validate") String validate,
-      @HeaderParam("Origin") String origin) {
+  @Route(path = "/forms", methods = HttpMethod.POST)
+  public void postForm(RoutingContext rc) throws URISyntaxException {
+    FormsPostData data = new FormsPostData(rc.request().formAttributes());
     FormsTemplateData templateData = data.toTemplateData();
+    @Nullable String validate = rc.request().getHeader("X-Up-Validate");
+    String origin = rc.request().absoluteURI();
     Set<ConstraintViolation<FormsTemplateData>> violations = validator.validate(templateData);
     if (validate != null || !violations.isEmpty()) {
       if ("zipcity".equals(validate)) {
         updateZipCity(templateData);
       }
-      return validateForm(templateData);
+      TemplateInstance templateInstance = validateForm(templateData);
+      rc.response().end(templateInstance.render());
     } else {
-      saveDataToSession(data);
-      URI uri = UriBuilder.fromUri(origin).path("/forms/thankyou").build();
+      saveDataToSession(data, rc.session());
+      URI uri = new URIBuilder(origin).setPath("/forms/thankyou").build();
       Logger.getLogger(getClass()).info("redirecting to " + uri.toString());
-      return Response.seeOther(uri).build();
+      rc.response().putHeader("location", uri.toString()).setStatusCode(302).end();
     }
   }
 
@@ -82,29 +77,32 @@ public class FormsResources {
     }
   }
 
-  @GET
-  @Produces(MediaType.TEXT_HTML)
-  @Path("/thankyou")
-  public TemplateInstance thankyou() {
+  @Route(path = "/forms/thankyou", methods = HttpMethod.GET)
+  public void thankyou(RoutingContext rc) {
+    @Nullable Session session = rc.session();
+    SessionData sessionData = session.get("forms");
     FormsTemplateData templateData = new FormsTemplateData(sessionData.getPersonCount(),
-        sessionData.getDate(), sessionData.getTime(), sessionData.getFirstname(), sessionData.getLastname(),
+        sessionData.getDate(), sessionData.getTime(), sessionData.getFirstname(),
+        sessionData.getLastname(),
         sessionData.getZipcity());
-    return thankyou.data("data", templateData);
+    rc.response().end(thankyou.data("data", templateData).render());
   }
 
-  private void saveDataToSession(FormsPostData data) {
+  private void saveDataToSession(FormsPostData data, @Nullable Session session) {
+    SessionData sessionData = new SessionData();
     sessionData.setPersonCount(data.getPersonCount());
     sessionData.setDate(LocalDate.parse(data.date, DateTimeFormatter.ISO_LOCAL_DATE));
     sessionData.setTime(data.time);
     sessionData.setFirstname(data.firstname);
     sessionData.setLastname(data.lastname);
     sessionData.setZipcity(data.zipcity);
+    session.put("forms", sessionData);
   }
 
-  private Response validateForm(FormsTemplateData templateData) {
+  private TemplateInstance validateForm(FormsTemplateData templateData) {
     Set<ConstraintViolation<FormsTemplateData>> violations = validator.validate(templateData);
     Map<String, String> violationMap = violations.stream().collect(
         Collectors.toMap(v -> v.getPropertyPath().toString(), ConstraintViolation::getMessage));
-    return Response.ok(forms.data("data", templateData).data("violations", violationMap)).build();
+    return forms.data("data", templateData).data("violations", violationMap);
   }
 }

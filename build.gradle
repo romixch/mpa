@@ -11,14 +11,16 @@ repositories {
 dependencies {
     implementation 'io.quarkus:quarkus-qute'
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation 'io.quarkus:quarkus-vertx'
     implementation 'io.quarkus:quarkus-resteasy'
-    implementation 'io.quarkus:quarkus-resteasy-qute'
+    implementation 'io.quarkus:quarkus-vertx-web'
     implementation 'org.webjars.npm:unpoly:0.61.1'
     implementation 'org.webjars.npm:date-input-polyfill:2.14.0'
-    implementation 'org.jboss.resteasy:resteasy-multipart-provider'
     implementation 'io.quarkus:quarkus-hibernate-validator'
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'com.opencsv:opencsv:4.6'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.12'
+
 
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
