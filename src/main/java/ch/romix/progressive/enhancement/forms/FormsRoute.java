@@ -54,7 +54,6 @@ public class FormsRoute {
     FormsPostData data = new FormsPostData(rc.request().formAttributes());
     FormsTemplateData templateData = data.toTemplateData();
     @Nullable String validate = rc.request().getHeader("X-Up-Validate");
-    String origin = rc.request().absoluteURI();
     Set<ConstraintViolation<FormsTemplateData>> violations = validator.validate(templateData);
     if (validate != null || !violations.isEmpty()) {
       if ("zipcity".equals(validate)) {
@@ -64,6 +63,7 @@ public class FormsRoute {
       rc.response().end(templateInstance.render());
     } else {
       saveDataToSession(data, rc.session());
+      String origin = rc.request().getHeader("origin");
       URI uri = new URIBuilder(origin).setPath("/forms/thankyou").build();
       Logger.getLogger(getClass()).info("redirecting to " + uri.toString());
       rc.response().putHeader("location", uri.toString()).setStatusCode(302).end();
