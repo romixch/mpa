@@ -94,7 +94,7 @@ r-two-columns ul, r-two-columns r-programmer-portrait {
   margin-top: 1em;
 }
 
-.sample-form r-field input, .sample-form r-field ui5-datepicker {
+.sample-form r-field > * {
   float: left;
   width: 75%;
   margin-top: 1em;
@@ -114,21 +114,30 @@ fieldset label {
   position: relative;
 }
 
-fieldset input[type="radio"] {
-  width: auto;
-  float: none;
+fieldset.forms-time-fieldset {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7em, 1fr));
+  gap: 0em 1em;
 }
 
-fieldset input ~ r-input-box {
-  position: absolute;
-  top: 0;
-  left: 0;
+fieldset.forms-time-fieldset input[type="radio"] {
+  display: none;
+}
+
+.sample-form r-field label.forms-time-label {
+  position: relative;
+  display: block;
+  float: none;
+  width: auto;
+}
+
+fieldset.forms-time-fieldset input ~ r-input-box {
   background-color: #f2f2f2;
   border: 1px solid rgb(0, 143, 215);
   border-radius: 5px;
   width: 100%;
-  margin-right: 1em;
-  padding: 0.5em 2em;
+  display: block;
+  padding: 0.7em 1em;
   box-sizing: border-box;
 }
 
@@ -142,7 +151,7 @@ fieldset input:checked ~ r-input-box {
 }
 
 @media screen and (max-width: 600px) {
-  .sample-form r-field label, .sample-form r-field input, .sample-form button[type=submit] {
+  .sample-form r-field > *, .sample-form button[type=submit] {
     width: 100%;
     margin-right: 0;
   }

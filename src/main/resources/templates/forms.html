@@ -52,9 +52,9 @@
     </r-field>
     <r-field up-fieldset>
       <label>Zeit:</label>
-      <fieldset>
+      <fieldset class="forms-time-fieldset">
         {#for time in data.availableTimes}
-        <label>
+        <label class="forms-time-label">
           <input type="radio" name="time" id="{time}" value="{time}"
                  {#if time is data.time}checked{/if} up-validate>
           <r-input-box>{time}</r-input-box>
