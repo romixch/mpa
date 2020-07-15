@@ -55,5 +55,5 @@ task npmBuild(type: Exec) {
     workingDir 'src/main/typescript'
     commandLine 'npm', 'run', 'build'
 }
-compileJava.dependsOn(npmBuild)
+build.dependsOn(npmBuild)
 npmBuild.dependsOn(npmCI)
