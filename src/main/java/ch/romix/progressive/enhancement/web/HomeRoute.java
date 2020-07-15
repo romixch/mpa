@@ -1,4 +1,4 @@
-package ch.romix.progressive.enhancement;
+package ch.romix.progressive.enhancement.web;
 
 import io.quarkus.qute.Template;
 import io.quarkus.vertx.web.Route;
@@ -8,14 +8,14 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class StackRoute {
+public class HomeRoute {
 
   @Inject
-  Template stack;
+  Template index;
 
-  @Route(path = "/stack", methods = HttpMethod.GET)
+  @Route(path = "/", methods = HttpMethod.GET)
   public void index(RoutingContext rc) {
-    rc.response().end(stack.render());
+    rc.response().end(index.render());
   }
 
 }

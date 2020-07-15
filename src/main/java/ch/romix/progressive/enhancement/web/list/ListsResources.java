@@ -1,4 +1,4 @@
-package ch.romix.progressive.enhancement.list;
+package ch.romix.progressive.enhancement.web.list;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.api.ResourcePath;

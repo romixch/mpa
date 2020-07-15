@@ -1,4 +1,4 @@
-package ch.romix.progressive.enhancement.session;
+package ch.romix.progressive.enhancement.infra.session;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.http.CookieSameSite;

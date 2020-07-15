@@ -1,4 +1,4 @@
-package ch.romix.progressive.enhancement;
+package ch.romix.progressive.enhancement.web.forms;
 
 import com.opencsv.CSVReader;
 import java.io.IOException;

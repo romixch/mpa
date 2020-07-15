@@ -1,4 +1,4 @@
-package ch.romix.progressive.enhancement.session;
+package ch.romix.progressive.enhancement.infra.session;
 
 import java.time.LocalDate;
 import javax.enterprise.context.RequestScoped;
