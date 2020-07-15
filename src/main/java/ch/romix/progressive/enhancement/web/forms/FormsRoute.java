@@ -1,5 +1,6 @@
 package ch.romix.progressive.enhancement.web.forms;
 
+import ch.romix.progressive.enhancement.infra.OriginHandler;
 import ch.romix.progressive.enhancement.infra.session.SessionData;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
@@ -60,7 +61,7 @@ public class FormsRoute {
       rc.response().end(templateInstance.render());
     } else {
       saveDataToSession(data, rc.session());
-      String origin = rc.request().getHeader("origin");
+      URI origin = OriginHandler.getOrigin(rc);
       URI uri = new URIBuilder(origin).setPath("/forms/thankyou").build();
       Logger.getLogger(getClass()).info("redirecting to " + uri.toString());
       rc.response().putHeader("location", uri.toString()).setStatusCode(302).end();

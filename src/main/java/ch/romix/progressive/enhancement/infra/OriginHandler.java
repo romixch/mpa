@@ -1,35 +1,36 @@
-package ch.romix.progressive.enhancement.infra.session;
+package ch.romix.progressive.enhancement.infra;
 
 import io.vertx.core.Vertx;
-import io.vertx.core.http.CookieSameSite;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.SessionHandler;
-import io.vertx.ext.web.sstore.LocalSessionStore;
+import io.vertx.ext.web.RoutingContext;
+import java.net.URI;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import javax.ws.rs.core.UriBuilder;
 import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
-public class SessionConfiguration {
-  private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(SessionConfiguration.class);
+public class OriginHandler {
+  private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(OriginHandler.class);
 
   @Inject
   Vertx vertx;
 
   public void init(@Observes Router router) {
-    LocalSessionStore sessionStore = LocalSessionStore.create(this.vertx);
-    SessionHandler sessionHandler = SessionHandler.create(sessionStore);
-    sessionHandler.setCookieSameSite(CookieSameSite.STRICT);
-    router.route().order(0).handler(sessionHandler);
-
     router.route().order(1).handler(rc -> {
-      LOGGER.info("######## headers");
-      rc.request().headers().entries().forEach(entry -> LOGGER.info("Header " + entry.getKey() + ": " + entry.getValue()));
-      LOGGER.info("########");
-      LOGGER.info("uri: " + rc.request().uri());
-      LOGGER.info("absoluteURI: " + rc.request().absoluteURI());
+      String uri = rc.request().absoluteURI();
+      UriBuilder builder = UriBuilder.fromUri(uri);
+      String forwardProto = rc.request().getHeader("x-forwarded-proto");
+      if (forwardProto != null) {
+        builder.scheme(forwardProto);
+      }
+      rc.data().put("origin", builder.build());
       rc.next();
     });
+  }
+
+  public static URI getOrigin(RoutingContext rc) {
+    return (URI)rc.data().get("origin");
   }
 }
