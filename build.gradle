@@ -45,3 +45,15 @@ java {
 test {
     systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
 }
+
+task npmCI(type: Exec) {
+    workingDir 'src/main/typescript'
+    commandLine 'npm', 'ci'
+}
+
+task npmBuild(type: Exec) {
+    workingDir 'src/main/typescript'
+    commandLine 'npm', 'run', 'build'
+}
+compileJava.dependsOn(npmBuild)
+npmBuild.dependsOn(npmCI)
