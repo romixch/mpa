@@ -12,8 +12,6 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -91,7 +89,7 @@ public class FormsRoute {
   private void saveDataToSession(FormsPostData data, @Nullable Session session) {
     SessionData sessionData = new SessionData();
     sessionData.setPersonCount(data.getPersonCount());
-    sessionData.setDate(LocalDate.parse(data.date, DateTimeFormatter.ISO_LOCAL_DATE));
+    sessionData.setDate(data.parsedDate);
     sessionData.setTime(data.time);
     sessionData.setFirstname(data.firstname);
     sessionData.setLastname(data.lastname);

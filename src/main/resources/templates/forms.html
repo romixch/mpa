@@ -41,7 +41,9 @@
     </r-field>
     <r-field up-fieldset>
       <label for="date">Datum:</label>
-      <input id="date" name="date" type="date" placeholder="YYYY-MM-DD" value="{data.date}" up-validate>
+      <ui5-datepicker id="ui5date" format-pattern="dd.MM.yyyy" value="{data.date.format ?: ''}">
+      </ui5-datepicker>
+      <input hidden id="date" name="date" value="{data.date.format ?: ''}" up-validate/>
       <r-validtion-error class="date-validation">
         {#if violations[date]}
         {violations[date]}
@@ -53,7 +55,8 @@
       <fieldset>
         {#for time in data.availableTimes}
         <label>
-          <input type="radio" name="time" id="{time}" value="{time}" {#if time is data.time}checked{/if} up-validate>
+          <input type="radio" name="time" id="{time}" value="{time}"
+                 {#if time is data.time}checked{/if} up-validate>
           <r-input-box>{time}</r-input-box>
         </label>
         {/for}

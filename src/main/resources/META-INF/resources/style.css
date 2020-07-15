@@ -94,7 +94,7 @@ r-two-columns ul, r-two-columns r-programmer-portrait {
   margin-top: 1em;
 }
 
-.sample-form r-field input {
+.sample-form r-field input, .sample-form r-field ui5-datepicker {
   float: left;
   width: 75%;
   margin-top: 1em;

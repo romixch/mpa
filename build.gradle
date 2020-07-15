@@ -15,7 +15,6 @@ dependencies {
     implementation 'io.quarkus:quarkus-resteasy'
     implementation 'io.quarkus:quarkus-vertx-web'
     implementation 'org.webjars.npm:unpoly:0.61.1'
-    implementation 'org.webjars.npm:date-input-polyfill:2.14.0'
     implementation 'io.quarkus:quarkus-hibernate-validator'
     implementation 'org.jsoup:jsoup:1.13.1'
     implementation 'com.opencsv:opencsv:4.6'

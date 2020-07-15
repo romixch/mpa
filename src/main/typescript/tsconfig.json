@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "es6",
     "target": "es5",
-    "module": "commonjs",
-    "declaration": true,
-    "outDir": "./build",
-    "strict": true
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+    "jsx": "react",
+    "allowJs": true
+  }
 }
