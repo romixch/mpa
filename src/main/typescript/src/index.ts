@@ -1,15 +1,17 @@
-import "@ui5/webcomponents/dist/Input.js"
-import "@ui5/webcomponents/dist/DatePicker.js"
-import "@ui5/webcomponents/dist/features/InputElementsFormSupport.js"
+import "@vaadin/vaadin-date-picker"
+import 'unpoly';
+import 'unpoly/dist/unpoly.css';
 
 import up from './unpoly';
+import { i18nDatePicker } from "./vaadinTranslation";
 
-up.compiler('#ui5date', {}, () => {
-  const ui5date = document.getElementById('ui5date');
+up.compiler('#vaadinDate', {}, () => {
+  const vaadinDate: any = document.getElementById('vaadinDate');
+  //vaadinDate.i18n = i18nDatePicker;
   const dateInput: any = document.getElementById('date');
-  ui5date.addEventListener('change', (e: any) => {
-    console.log('### details:', e.detail);
-    dateInput.value = e.detail.value;
+  vaadinDate.addEventListener('change', () => {
+    dateInput.value = vaadinDate.value;
+    console.log('Date change event', vaadinDate.value);
     up.validate(dateInput);
   });
 });

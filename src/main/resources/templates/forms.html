@@ -41,9 +41,8 @@
     </r-field>
     <r-field up-fieldset>
       <label for="date">Datum:</label>
-      <ui5-datepicker id="ui5date" format-pattern="dd.MM.yyyy" value="{data.date.format ?: ''}">
-      </ui5-datepicker>
-      <input hidden id="date" name="date" value="{data.date.format ?: ''}" up-validate/>
+      <vaadin-date-picker id="vaadinDate" value="{data.date}"></vaadin-date-picker>
+      <input hidden id="date" name="date" value="{data.date}"/>
       <r-validtion-error class="date-validation">
         {#if violations[date]}
         {violations[date]}

@@ -4,8 +4,6 @@ import io.vertx.core.MultiMap;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.format.FormatStyle;
-import java.util.Locale;
 
 public class FormsPostData {
 
@@ -21,8 +19,7 @@ public class FormsPostData {
     personCount = formAttributes.get("person-count");
     date = formAttributes.get("date");
     try {
-      parsedDate = LocalDate.parse(this.date, DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-          .withLocale(Locale.GERMAN));
+      parsedDate = LocalDate.parse(this.date, DateTimeFormatter.ISO_DATE);
     } catch (DateTimeParseException e) {
       parsedDate = null;
     }
