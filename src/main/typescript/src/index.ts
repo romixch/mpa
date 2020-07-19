@@ -7,7 +7,7 @@ import { i18nDatePicker } from "./vaadinTranslation";
 
 up.compiler('#vaadinDate', {}, () => {
   const vaadinDate: any = document.getElementById('vaadinDate');
-  //vaadinDate.i18n = i18nDatePicker;
+  vaadinDate.i18n = i18nDatePicker;
   const dateInput: any = document.getElementById('date');
   vaadinDate.addEventListener('change', () => {
     dateInput.value = vaadinDate.value;

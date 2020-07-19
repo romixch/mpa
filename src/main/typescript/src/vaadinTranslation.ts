@@ -46,8 +46,9 @@ export const i18nDatePicker = {
   formatDate: (d: any) => {
     // returns a string representation of the given
     // object in 'MM/DD/YYYY' -format
-    console.log('d', d);
-    return `${d.day}.${d.month + 1}.${d.year}`;
+    const yearStr = String(d.year).replace(/\d+/, y => '0000'.substr(y.length) + y);
+    const formatted = [d.day, d.month + 1, yearStr].join('.');
+    return formatted;
   },
 
   // A function to parse the given text to an `Object` in the format `{ day: ..., month: ..., year: ... }`.
@@ -57,9 +58,27 @@ export const i18nDatePicker = {
   parseDate: (text: string) => {
     // Parses a string in 'MM/DD/YY', 'MM/DD' or 'DD' -format to
     // an `Object` in the format `{ day: ..., month: ..., year: ... }`.
-    console.log('text', text);
-    const splitted = text.split('.');
-    return { day: splitted[0], month: -1 + splitted[1], year: splitted[2] };
+    const parts = text.split('.');
+    const today = new Date();
+    let date, month = today.getMonth(), year = today.getFullYear();
+
+    if (parts.length === 3) {
+      year = parseInt(parts[2]);
+      if (parts[2].length < 3 && year >= 0) {
+        year += year < 50 ? 2000 : 1900;
+      }
+      month = parseInt(parts[1]) - 1;
+      date = parseInt(parts[0]);
+    } else if (parts.length === 2) {
+      month = parseInt(parts[1]) - 1;
+      date = parseInt(parts[0]);
+    } else if (parts.length === 1) {
+      date = parseInt(parts[0]);
+    }
+
+    if (date !== undefined) {
+      return { day: date, month, year };
+    }
   },
 
   // A function to format given `monthName` and
