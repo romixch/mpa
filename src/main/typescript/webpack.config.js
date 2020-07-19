@@ -1,5 +1,4 @@
 const path = require('path');
-const MinifyPlugin = require("babel-minify-webpack-plugin");
 
 module.exports = {
   entry: './src/index.ts',
@@ -22,8 +21,5 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, '../resources/META-INF/resources'),
-  },
-  plugins: [
-    new MinifyPlugin({}, {})
-  ]
+  }
 };

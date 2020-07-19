@@ -53,7 +53,7 @@ task npmCI(type: Exec) {
 
 task npmBuild(type: Exec) {
     workingDir 'src/main/typescript'
-    commandLine 'npm', 'run', 'build'
+    commandLine 'npm', 'run', 'build:prod'
 }
 build.dependsOn(npmBuild)
 npmBuild.dependsOn(npmCI)
