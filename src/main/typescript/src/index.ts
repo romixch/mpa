@@ -1,4 +1,4 @@
-import "@vaadin/vaadin-date-picker"
+import "@vaadin/vaadin-date-picker/vaadin-date-picker.js"
 import 'unpoly';
 import 'unpoly/dist/unpoly.css';
 
@@ -11,7 +11,6 @@ up.compiler('#vaadinDate', {}, () => {
   const dateInput: any = document.getElementById('date');
   vaadinDate.addEventListener('change', () => {
     dateInput.value = vaadinDate.value;
-    console.log('Date change event', vaadinDate.value);
     up.validate(dateInput);
   });
 });
