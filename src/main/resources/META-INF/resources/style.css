@@ -230,3 +230,9 @@ button:hover {
   border: 2px solid rgb(0, 143, 215);
   color: rgb(0, 143, 215);
 }
+
+.screenshot {
+  width: 50%;
+  border: 1px solid grey;
+  box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+}
