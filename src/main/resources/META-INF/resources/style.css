@@ -236,3 +236,9 @@ button:hover {
   border: 1px solid grey;
   box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
 }
+
+.github {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <title>Moderne Multi-Page Apps: {#insert title}{/}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   <script src="/bundle.js"></script>
@@ -9,7 +9,17 @@
 
 </head>
 <body>
+
 <h1>Moderne Multi-Page Apps</h1>
+
+<a class="github" href="https://github.com/romixch/HTMLToTheWire">
+  <img width="149" height="149"
+       src="https://github.blog/wp-content/uploads/2008/12/forkme_right_orange_ff7600.png?resize=149%2C149"
+       class="attachment-full size-full"
+       alt="Fork me on GitHub"
+       data-recalc-dims="1">
+</a>
+
 <nav up-nav up-fixed="top">
   <a class="menu-item" href="/" up-preload up-target="main" up-transition="cross-fade">Home</a>
   <a class="menu-item" href="/forms" up-alias="/forms/*" up-preload up-target="main"
@@ -20,6 +30,7 @@
   <a class="menu-item" href="/stack" up-preload up-target="main"
      up-transition="cross-fade">Stack</a>
 </nav>
+
 <main>
   {#insert body}Kein Body hier!{/}
 </main>
