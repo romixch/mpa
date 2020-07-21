@@ -6,64 +6,19 @@
 <p>Das ist eigentlich eine simple Webseite im ursprünglichsten Sinne. Jede Seite verfügt über eine
   eigene URL. Es wird ein HTML ausgeliefert, welches zusammen mit CSS zu einer Seite gerendert wird.
   JavaScript ist nicht zwingend notwendig, kann aber gewissen Stellen für mehr Usability sorgen.</p>
+<p>Die Seiten werden in der Regel mit Template-Engines erstellt. Solche Engines gibt es sehr
+  viele. Damit lassen sich einzelne Teile in Komponenten kapseln und allgemeine Seitenlayouts
+  vererben.</p>
 
-<h2>Was vermissen wir?</h2>
-Wir schreiben heute nur noch selten solche Webseiten im 1990-Style. Von SPAs erhoffen wir uns
-folgende Vorteile:
+<r-slide-nav>
+  <img src="/img/template-engine.svg" style="width: 40em; max-width: 100%"/>
+</r-slide-nav>
 
-<ul>
-  <li><strong>Schnellerer Seitenaufbau.</strong> Die Seite soll nicht immer neu gerendert werden.
-  </li>
-  <li><strong>Caching.</strong> Bereits geladener Inhalt soll nicht erneut angefragt werden.</li>
-  <li><strong>Offlinefähigkeit.</strong> SPAs können mittels Service-Workers auch offline verfügbar
-    sein.
-  </li>
-</ul>
-
-<h2>Wie kriege ich das trotzdem?</h2>
-
-<h3>Geschwindigkeit</h3>
-<p>Für MPAs gibt es kleine JavaScript-Libraries, die genau wie SPAs nur den relevanten Teil des DOMs
-  austauschen. Wir fragen zwar das ganze HTML an, nehmen aber nur einen Teil davon raus und ersetzen
-  den alten Teil des DOMs mit dem neuen. Der Browser muss damit nicht jedes mal die ganze Seite neu
-  aufbauen. Die Navigation, Header, Footer, CSS und Javascript sind schon geparsed und gerendert.
-  Bildlich passiert folgendes:</p>
-
-<img class="screenshot" src="/img/home_fragments.gif">
-
-<p>Nur der rot markierte Teil wird ersetzt. Für diese simple Aktion muss der Browser kein JSX
-  interpretieren. Ich muss keinen Router installieren um die URL korrekt abzubilden.</p>
-
-<h3>Caching</h3>
-<p>Caching ist ein integrierter Bestandteil von HTTP. Natürlich können auch MPAs Caching
-  verwenden.</p>
-
-<h3>Offlinefähigkeit</h3>
-<p>Es spricht nichts dagegen, auch mit MPAs komplette Progressive Web Apps zu bauen. Service-Worker
-  funktionieren bei beiden Ansätzen.</p>
-
-<h2>Was spare ich mir?</h2>
-
-<p>Der Stack wird um einiges kleiner. Wir haben nur noch ein Repo. Weniger Stack und Komplexität
-  bedeutet auch mehr Wartbarkeit. Eine React- oder Angular-Anwendung inkl. Server auf den neusten
-  Stand zu bringen ist um einiges aufwändiger, als eine Template-Engine mit drei, vier
-  JavaScript-Libraries oben drauf.</p>
-
-<h2>Kann ich trotzdem komplexe UIs bauen?</h2>
-<p>Ja, das geht. Ich zeige das im Abschnitt
-  <a href="/forms" up-target="main"
-     up-transition="cross-fade" up-preload>Formulare</a>.
-</p>
-
-<h2>Was mich inspiriert hat</h2>
-<p>In erster Linie war es der Vortrag der Java User Group Schweiz hier <a
-    href="https://www.youtube.com/watch?v=TKzGHS0Qp1E&t=4136s">Architekturoptionen für moderne Web
-  Frontends</a> Stefan Tilkov und Lucas Dohmen von <a href="https://innoq.de">INNOQ</a> legen dar,
-  welche hohe Komplexität SPAs mittlerweile haben und warum sie denken, dass weniger oft mehr ist.
-
-<p>Über diesen Blogpost habe ich mich für die Template-Engine Qute für Quarkus entschieden: <a
-    href="https://www.morling.dev/blog/quarkus-qute-test-ride/">Quarkus Qute
-  – A Test Ride</a></p>
+<r-slide-nav>
+  <a href="/home/was-fehlt" up-preload up-target="main" up-transition="cross-fade">
+    <button>Weiter</button>
+  </a>
+</r-slide-nav>
 
 {/body}
 {/include}

@@ -1,0 +1,28 @@
+{#include layout}
+{#title}Home{/title}
+{#body}
+
+<h2>Was vermissen wir?</h2>
+<p>Wir schreiben heute nur noch selten solche Webseiten im 1990-Style. Von SPAs erhoffen wir uns
+  folgende Vorteile:</p>
+
+<ul>
+  <li><strong>Schnellerer Seitenaufbau.</strong> Die Seite soll nicht immer neu gerendert werden.
+  </li>
+  <li><strong>Caching.</strong> Bereits geladener Inhalt soll nicht erneut angefragt werden.</li>
+  <li><strong>Offlinefähigkeit.</strong> SPAs können mittels Service-Workers auch offline verfügbar
+    sein.
+  </li>
+</ul>
+
+<r-slide-nav>
+  <a href="/" up-preload up-target="main" up-transition="cross-fade">
+    <button>Zurück</button>
+  </a>
+  <a href="/home/trotzdem" up-preload up-target="main" up-transition="cross-fade">
+    <button>Weiter</button>
+  </a>
+</r-slide-nav>
+
+{/body}
+{/include}

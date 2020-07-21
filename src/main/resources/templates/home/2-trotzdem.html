@@ -1,0 +1,37 @@
+{#include layout}
+{#title}Home{/title}
+{#body}
+
+<h2>Wie kriege ich das trotzdem?</h2>
+
+<h3>Geschwindigkeit</h3>
+<p>Für MPAs gibt es kleine JavaScript-Libraries, die genau wie SPAs nur den relevanten Teil des DOMs
+  austauschen. Wir fragen zwar das ganze HTML an, nehmen aber nur einen Teil davon raus und ersetzen
+  den alten Teil des DOMs mit dem neuen. Der Browser muss damit nicht jedes mal die ganze Seite neu
+  aufbauen. Die Navigation, Header, Footer, CSS und Javascript sind schon geparsed und gerendert.
+  Bildlich passiert folgendes:</p>
+
+<img class="screenshot" src="/img/home_fragments.gif">
+
+<p>Nur der rot markierte Teil wird ersetzt. Für diese simple Aktion muss der Browser kein JSX
+  interpretieren. Ich muss keinen Router installieren um die URL korrekt abzubilden.</p>
+
+<h3>Caching</h3>
+<p>Caching ist ein integrierter Bestandteil von HTTP. Natürlich können auch MPAs Caching
+  verwenden.</p>
+
+<h3>Offlinefähigkeit</h3>
+<p>Es spricht nichts dagegen, auch mit MPAs komplette Progressive Web Apps zu bauen. Service-Worker
+  funktionieren bei beiden Ansätzen.</p>
+
+<r-slide-nav>
+  <a href="/home/was-fehlt" up-preload up-target="main" up-transition="cross-fade">
+    <button>Zurück</button>
+  </a>
+  <a href="/home/was-spare-ich-mir" up-preload up-target="main" up-transition="cross-fade">
+    <button>Weiter</button>
+  </a>
+</r-slide-nav>
+
+{/body}
+{/include}

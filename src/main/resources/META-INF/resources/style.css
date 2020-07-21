@@ -54,6 +54,17 @@ main {
   margin: 3rem 2rem;
 }
 
+r-slide-nav {
+  margin-top: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+r-slide-nav * {
+  margin-right: 1em;
+}
+
 r-two-columns {
   display: flex;
   flex-direction: row;
