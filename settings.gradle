@@ -8,4 +8,4 @@ pluginManagement {
       id 'io.quarkus' version "${quarkusPluginVersion}"
     }
 }
-rootProject.name='ch.romix.progressive.enhancement'
+rootProject.name='ch.romix.mpa'

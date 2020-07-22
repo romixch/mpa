@@ -1,4 +1,4 @@
-package ch.romix.progressive.enhancement.web.forms;
+package ch.romix.mpa.web.forms;
 
 import io.vertx.core.MultiMap;
 import java.time.LocalDate;

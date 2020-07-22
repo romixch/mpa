@@ -1,4 +1,4 @@
-package ch.romix.progressive.enhancement;
+package ch.romix.mpa;
 
 import io.quarkus.test.junit.NativeImageTest;
 

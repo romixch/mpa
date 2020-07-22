@@ -1,7 +1,7 @@
-package ch.romix.progressive.enhancement.web.forms;
+package ch.romix.mpa.web.forms;
 
-import ch.romix.progressive.enhancement.infra.OriginHandler;
-import ch.romix.progressive.enhancement.infra.session.SessionData;
+import ch.romix.mpa.infra.session.SessionData;
+import ch.romix.mpa.infra.OriginHandler;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.api.ResourcePath;

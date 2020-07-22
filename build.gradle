@@ -25,7 +25,7 @@ dependencies {
     testImplementation 'io.rest-assured:rest-assured'
 }
 
-group 'ch.romix.progressive.enhancement'
+group 'ch.romix.mpa'
 version '1.0.0-SNAPSHOT'
 
 compileJava {

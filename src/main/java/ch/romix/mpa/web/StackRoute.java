@@ -1,4 +1,4 @@
-package ch.romix.progressive.enhancement.web;
+package ch.romix.mpa.web;
 
 import io.quarkus.qute.Template;
 import io.quarkus.vertx.web.Route;

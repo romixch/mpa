@@ -1,4 +1,4 @@
-package ch.romix.progressive.enhancement.infra;
+package ch.romix.mpa.infra;
 
 import io.quarkus.qute.TemplateExtension;
 import java.time.LocalDate;

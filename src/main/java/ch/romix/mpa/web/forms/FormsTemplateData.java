@@ -1,4 +1,4 @@
-package ch.romix.progressive.enhancement.web.forms;
+package ch.romix.mpa.web.forms;
 
 import java.time.LocalDate;
 import java.util.Arrays;
