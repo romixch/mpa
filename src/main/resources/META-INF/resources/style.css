@@ -47,7 +47,10 @@ nav a:hover {
 
 nav a.up-current {
   background-color: #80D741;
-  color: rgb(0, 143, 215);
+}
+
+nav a.up-current:hover {
+  color: white;
 }
 
 main {
