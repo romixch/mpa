@@ -36,3 +36,4 @@ build/
 /lsp
 
 /src/main/resources/META-INF/resources/bundle.*
+.envrc
