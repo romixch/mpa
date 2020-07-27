@@ -35,4 +35,4 @@ build/
 # GraalVM
 /lsp
 
-/src/main/resources/META-INF/resources/bundle.*
+/src/main/resources/META-INF/resources/*-bundle.*
