@@ -12,4 +12,9 @@ docker tag romixch/ch.romix.mpa gcr.io/progressive-enhancement/ch.romix.mpa
 
 docker push gcr.io/progressive-enhancement/ch.romix.mpa
 
-gcloud run deploy chromixprogressiveenhancement --project=progressive-enhancement --region=us-west1 --image=gcr.io/progressive-enhancement/ch.romix.mpa --platform=managed
+gcloud run deploy chromixprogressiveenhancement --project=progressive-enhancement \
+  --region=us-west1 \
+  --image=gcr.io/progressive-enhancement/ch.romix.mpa \
+  --platform=managed \
+  --set-env-vars=AUTH0_DOMAIN=$AUTH0_DOMAIN,AUTH0_CLIENTID=$AUTH0_CLIENTID,AUTH0_CLIENTSECRET=$AUTH0_CLIENTSECRET
+
