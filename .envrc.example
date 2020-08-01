@@ -1,0 +1,3 @@
+export AUTH0_DOMAIN=TODO: your auth0 domain
+export AUTH0_CLIENTID=TODO: your client id
+export AUTH0_CLIENTSECRET=TODO: your client secret
