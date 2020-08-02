@@ -2,18 +2,20 @@ package ch.romix.mpa.web.secured;
 
 import ch.romix.mpa.infra.Environment;
 import ch.romix.mpa.infra.OriginHandler;
-import com.auth0.AuthenticationController;
-import com.auth0.IdentityVerificationException;
-import com.auth0.Tokens;
-import com.auth0.jwk.JwkProvider;
-import com.auth0.jwk.JwkProviderBuilder;
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.client.auth.AuthAPI;
+import com.auth0.exception.Auth0Exception;
+import com.auth0.json.auth.TokenHolder;
+import com.auth0.json.auth.UserInfo;
+import com.auth0.net.AuthRequest;
+import com.auth0.net.Request;
 import io.quarkus.vertx.web.Route;
+import io.vertx.core.http.Cookie;
+import io.vertx.core.http.CookieSameSite;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.RoutingContext;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.apache.http.client.utils.URIBuilder;
@@ -26,55 +28,62 @@ public class SecuredRoute {
 
   @Route(path = "/auth/login", methods = HttpMethod.GET)
   public void index(RoutingContext rc) throws URISyntaxException {
+    AuthAPI auth0 = new AuthAPI(environment.getAuth0Domain(), environment.getAuth0ClientId(),
+        environment.getAuth0ClientSecret());
 
     URI origin = OriginHandler.getOrigin(rc);
     URI redirectUrl = new URIBuilder(origin).setPath("/auth/callback").build();
-
-    JwkProvider jwkProvider = new JwkProviderBuilder(environment.getAuth0Domain()).build();
-    AuthenticationController authenticationController = AuthenticationController
-        .newBuilder(environment.getAuth0Domain(), environment.getAuth0ClientId(), environment.getAuth0ClientSecret()).withJwkProvider(jwkProvider).build();
-
-    String authorizeUrl = authenticationController
-        .buildAuthorizeUrl(new RequestWrapper(rc), new ResponseWrapper(rc), redirectUrl.toString())
+    String state = UUID.randomUUID().toString();
+    String authorizeUrl = auth0.authorizeUrl(redirectUrl.toString())
         .withScope("openid profile email")
+        .withState(state)
         .build();
-
+    rc.response().addCookie(Cookie.cookie("auth0-state", state).setMaxAge(600).setSameSite(
+        CookieSameSite.LAX));
     rc.response().putHeader("location", authorizeUrl).setStatusCode(302).end();
   }
 
   @Route(path = "/auth/callback", methods = HttpMethod.GET)
   public void authCallback(RoutingContext rc)
-      throws IdentityVerificationException, URISyntaxException {
-    JwkProvider jwkProvider = new JwkProviderBuilder(environment.getAuth0Domain()).build();
-    AuthenticationController authenticationController = AuthenticationController
-        .newBuilder(environment.getAuth0Domain(), environment.getAuth0ClientId(),
-            environment.getAuth0ClientSecret()).withJwkProvider(jwkProvider).build();
-    Tokens tokens = authenticationController
-        .handle(new RequestWrapper(rc), new ResponseWrapper(rc));
-    DecodedJWT decodedJWT = JWT.decode(tokens.getIdToken());
-    var claims = decodedJWT.getClaims();
-    System.out.println("claims: " + claims);
+      throws URISyntaxException, Auth0Exception {
+    String code = rc.request().getParam("code");
+    String state = rc.request().getParam("state");
     URI origin = OriginHandler.getOrigin(rc);
+
+    String stateFromCookie = rc.request().cookieMap().get("auth0-state").getValue();
+    if (!state.equals(stateFromCookie)) {
+      throw new RuntimeException("Not authorized. State does not match");
+    }
+
+    AuthAPI auth0 = new AuthAPI(environment.getAuth0Domain(), environment.getAuth0ClientId(),
+        environment.getAuth0ClientSecret());
+
+    AuthRequest authRequest = auth0.exchangeCode(code, origin.toString());
+
+    try {
+      TokenHolder tokenHolder = authRequest.execute();
+      Request<UserInfo> request = auth0.userInfo(tokenHolder.getAccessToken());
+      UserInfo info = request.execute();
+      rc.session().put("user", info);
+    } finally {
+      rc.response().removeCookie("auth0-state");
+    }
+
     URI homeUrl = new URIBuilder(origin).setPath("/").removeQuery().build();
     rc.response().putHeader("location", homeUrl.toString()).setStatusCode(302).end();
   }
 
-  @Route(path="/auth/logout", methods = HttpMethod.GET)
+  @Route(path = "/auth/logout", methods = HttpMethod.GET)
   public void authLogout(RoutingContext rc) throws URISyntaxException {
-    // invalidate session
+    AuthAPI auth0 = new AuthAPI(environment.getAuth0Domain(), environment.getAuth0ClientId(),
+        environment.getAuth0ClientSecret());
 
     URI origin = OriginHandler.getOrigin(rc);
     URI returnUrl = new URIBuilder(origin).setPath("/").removeQuery().build();
 
-    // Build logout URL like:
-    // https://{YOUR-DOMAIN}/v2/logout?client_id={YOUR-CLIENT-ID}&returnTo=http://localhost:3000/login
-    String logoutUrl = String.format(
-        "https://%s/v2/logout?client_id=%s&returnTo=%s",
-        environment.getAuth0Domain(),
-        environment.getAuth0ClientId(),
-        returnUrl
-    );
+    String logoutUrl = auth0.logoutUrl(returnUrl.toString(), true).build();
     rc.response().putHeader("location", logoutUrl).setStatusCode(302).end();
+    rc.session().destroy();
   }
 
 }
