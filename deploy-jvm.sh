@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Build the app
+./gradlew quarkusBuild
+
+# Build a docker image with the native image
+docker build -f src/main/docker/Dockerfile.jvm -t romixch/ch.romix.mpa .
+
+docker tag romixch/ch.romix.mpa gcr.io/progressive-enhancement/ch.romix.mpa
+
+# gcloud auth configure-docker
+
+docker push gcr.io/progressive-enhancement/ch.romix.mpa
+
+gcloud run deploy chromixprogressiveenhancement --project=progressive-enhancement \
+  --region=us-west1 \
+  --image=gcr.io/progressive-enhancement/ch.romix.mpa \
+  --platform=managed \
+  --set-env-vars=AUTH0_DOMAIN=$AUTH0_DOMAIN,AUTH0_CLIENTID=$AUTH0_CLIENTID,AUTH0_CLIENTSECRET=$AUTH0_CLIENTSECRET
+

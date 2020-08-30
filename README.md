@@ -17,28 +17,28 @@ aus NodeJS-Anwendungen kennst.
 ./gradlew quarkusDev
 ```
 
-## Packaging
+## Native Docker Image
 
-So erstellst du ein Jar-File der Anwendung: `./gradlew quarkusBuild`.
-Es erstellt `ch.romix.mpa-1.0.0-SNAPSHOT-runner.jar` im Ordner `build`.
-Dies ist kein _über-jar_. Die Abhängigkeiten landen im Verzeichnis `build/lib`.
-
-Du kannst die Anwendung nun starten mit `java -jar build/ch.romix.mpa-1.0.0-SNAPSHOT-runner.jar`.
-
-Um ein über-jar zu erstellen, füge die Option `--uber-jar` hinzu:
-```
-./gradlew quarkusBuild --uber-jar
-```
-
-## Ein Native Image erstellen
-
-Wenn du GraalVM 19 installiert hast, kannst du ein Natives-Binary erstellen mit: `./gradlew build -Dquarkus.package.type=native`.
+Wenn du GraalVM 20 installiert hast, kannst du ein Natives-Binary erstellen mit: `./gradlew build -Dquarkus.package.type=native`.
 
 Hast du keine GraalVM installiert, kannst du die GraalVM auch einfach über Docker verwenden lassen: `./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true`.
 
 Das Binary startest du dann einfach mit folgendem Befehl (nur Linux): `./build/ch.romix.mpa-1.0.0-SNAPSHOT-runner`
 
 Mehr über Native Images von Quarkus findest du hier: https://quarkus.io/guides/gradle-tooling#building-a-native-executable.
+
+Mit dem Native Image kannst du nun auch ganz leicht ein Docker Image erstellen. Dazu gibt es bereits ein vorbereitetes Dockerfile:
+`docker build -f src/main/docker/Dockerfile.native -t romixch/ch.romix.mpa .`
+
+## Java Docker Image
+Nicht alle Java-Libraries laufen auch in einem Native Image out of the box. Als Java-Anwendung
+startet Quarkus aber auch respektabel schnell. Um ein Java Docker Image zu erhalten, gehst du wie folgt vor:
+
+Baue deine Anwendung: `./gradlew quarkusBuild`. Nun liegt ein `ch.romix.mpa-1.0.0-SNAPSHOT-runner.jar` im Ordner `build`. Die Abhängigkeiten landen im Verzeichnis `build/lib`.
+
+Du kannst die Anwendung nun starten mit `java -jar build/ch.romix.mpa-1.0.0-SNAPSHOT-runner.jar`.
+
+Damit du ein Docker Image erhälst, kannst du wiederum das vorgefertigte Dockerfile verwenden: `docker build -f src/main/docker/Dockerfile.jvm -t romixch/ch.romix.mpa .`
 
 ## Deployment
 
