@@ -19,9 +19,14 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.apache.http.client.utils.URIBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Singleton
 public class SecuredRoute {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(SecuredRoute.class);
+
 
   @Inject
   private Environment environment;
@@ -55,16 +60,15 @@ public class SecuredRoute {
       throw new RuntimeException("Not authorized. State does not match");
     }
 
-    AuthAPI auth0 = new AuthAPI(environment.getAuth0Domain(), environment.getAuth0ClientId(),
-        environment.getAuth0ClientSecret());
-
-    AuthRequest authRequest = auth0.exchangeCode(code, origin.toString());
-
     try {
+      AuthAPI auth0 = new AuthAPI(environment.getAuth0Domain(), environment.getAuth0ClientId(),
+          environment.getAuth0ClientSecret());
+      AuthRequest authRequest = auth0.exchangeCode(code, origin.toString());
       TokenHolder tokenHolder = authRequest.execute();
       Request<UserInfo> request = auth0.userInfo(tokenHolder.getAccessToken());
       UserInfo info = request.execute();
       rc.session().put("user", info);
+      LOGGER.info("User logged in: " + info);
     } finally {
       rc.response().removeCookie("auth0-state");
     }
