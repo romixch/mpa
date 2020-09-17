@@ -32,7 +32,7 @@ public class HomeRoute {
 
   @Route(path = "/", methods = HttpMethod.GET)
   public void index(RoutingContext rc) {
-    rc.response().end(index.render());
+    rc.response().end(index.data("user", rc.session().get("user")).render());
   }
 
   @Route(path = "/home/was-fehlt", methods = HttpMethod.GET)

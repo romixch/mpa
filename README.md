@@ -42,4 +42,4 @@ Damit du ein Docker Image erhälst, kannst du wiederum das vorgefertigte Dockerf
 
 ## Deployment
 
-Ein kleines Skript zum Builden und Deployen in die Google Cloud ist in `deploy.sh`.
+Ein kleines Skript zum Builden und Deployen in die Google Cloud ist in `deploy-jvm.sh` oder `deploy-native.sh`.

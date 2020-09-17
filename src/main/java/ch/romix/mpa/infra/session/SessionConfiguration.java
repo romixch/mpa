@@ -18,7 +18,7 @@ public class SessionConfiguration {
   public void init(@Observes Router router) {
     LocalSessionStore sessionStore = LocalSessionStore.create(this.vertx);
     SessionHandler sessionHandler = SessionHandler.create(sessionStore);
-    sessionHandler.setCookieSameSite(CookieSameSite.STRICT);
+    sessionHandler.setCookieSameSite(CookieSameSite.LAX);
     router.route().order(0).handler(sessionHandler);
   }
 }

@@ -1,0 +1,16 @@
+{@ch.romix.mpa.domain.UserValueObject user}
+{#include layout}
+{#title}Home{/title}
+{#body}
+
+<h2>Meine Zeiterfassung</h2>
+
+<p>Hier ist eine kleine Demonstration, wie einfach eine kleine Zeiterfassung mit dem MPA-Ansatz umzusetzen ist.</p>
+
+{#if user.name}
+{user.name} (<a href="/auth/logout">abmelden</a>)
+{#else}
+<a href="/auth/login">anmelden</a>
+{/if}
+{/body}
+{/include}

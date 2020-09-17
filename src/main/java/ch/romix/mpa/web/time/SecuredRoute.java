@@ -1,5 +1,6 @@
-package ch.romix.mpa.web.secured;
+package ch.romix.mpa.web.time;
 
+import ch.romix.mpa.domain.UserValueObject;
 import ch.romix.mpa.infra.Environment;
 import ch.romix.mpa.infra.OriginHandler;
 import com.auth0.client.auth.AuthAPI;
@@ -13,8 +14,11 @@ import io.vertx.core.http.Cookie;
 import io.vertx.core.http.CookieSameSite;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.ext.web.RoutingContext;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Map;
 import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -50,7 +54,7 @@ public class SecuredRoute {
 
   @Route(path = "/auth/callback", methods = HttpMethod.GET)
   public void authCallback(RoutingContext rc)
-      throws URISyntaxException, Auth0Exception {
+      throws URISyntaxException, Auth0Exception, MalformedURLException {
     String code = rc.request().getParam("code");
     String state = rc.request().getParam("state");
     URI origin = OriginHandler.getOrigin(rc);
@@ -67,13 +71,18 @@ public class SecuredRoute {
       TokenHolder tokenHolder = authRequest.execute();
       Request<UserInfo> request = auth0.userInfo(tokenHolder.getAccessToken());
       UserInfo info = request.execute();
-      rc.session().put("user", info);
-      LOGGER.info("User logged in: " + info);
+      Map<String, Object> userValues = info.getValues();
+      String userName = userValues.get("name") == null ? "" : userValues.get("name").toString();
+      URL pictureUrl =
+          userValues.get("picture") == null ? null : new URL(userValues.get("picture").toString());
+      UserValueObject user = new UserValueObject(userName, pictureUrl);
+      rc.session().put("user", user);
+
     } finally {
       rc.response().removeCookie("auth0-state");
     }
 
-    URI homeUrl = new URIBuilder(origin).setPath("/").removeQuery().build();
+    URI homeUrl = new URIBuilder(origin).setPath("/time").removeQuery().build();
     rc.response().putHeader("location", homeUrl.toString()).setStatusCode(302).end();
   }
 
