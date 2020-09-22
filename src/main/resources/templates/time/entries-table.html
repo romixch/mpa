@@ -1,0 +1,8 @@
+{@java.util.Collection entries}
+
+  <div class="table entries-table">
+    {#for entry in entries}
+    {#include time/entry /}
+    {/for}
+    {#include time/new-entry /}
+  </div>

@@ -1,16 +1,25 @@
 {@ch.romix.mpa.domain.UserValueObject user}
+{@java.util.Collection<ch.romix.mpa.domain.time.EntryEntity> entries}
 {#include layout}
 {#title}Home{/title}
 {#body}
 
 <h2>Meine Zeiterfassung</h2>
 
-<p>Hier ist eine kleine Demonstration, wie einfach eine kleine Zeiterfassung mit dem MPA-Ansatz umzusetzen ist.</p>
+<p>Hier ist eine kleine Demonstration, wie einfach eine kleine Zeiterfassung mit dem MPA-Ansatz
+  umzusetzen ist.</p>
 
-{#if user.name}
-{user.name} (<a href="/auth/logout">abmelden</a>)
-{#else}
-<a href="/auth/login">anmelden</a>
-{/if}
+<p>Um diese Funktionen nutzen zu können, musst du angemeldet sein. Gerne kannst du dir auch einen
+  Account selber erstellen:
+  {#if user.name}
+  {user.name} (<a href="/auth/logout">abmelden</a>)
+  {#else}
+  <a href="/auth/login">anmelden</a>
+  {/if}
+
+  {#if user.name}
+    {#include time/entries-table /}
+  {/if}
+</p>
 {/body}
 {/include}

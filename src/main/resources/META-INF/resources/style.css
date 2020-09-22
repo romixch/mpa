@@ -256,3 +256,7 @@ button:hover {
   top: 0px;
   right: 0px;
 }
+
+.table {display: table; }
+.table-row {display: table-row; }
+.table-cell {display: table-cell; }
