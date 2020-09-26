@@ -9,12 +9,13 @@
 <p>Hier ist eine kleine Demonstration, wie einfach eine kleine Zeiterfassung mit dem MPA-Ansatz
   umzusetzen ist.</p>
 
-<p>Um diese Funktionen nutzen zu können, musst du angemeldet sein. Gerne kannst du dir auch einen
-  Account selber erstellen:
+<p>
   {#if user.name}
-  {user.name} (<a href="/auth/logout">abmelden</a>)
+  Du bist angemeldet als {user.name} (<a href="/auth/logout">abmelden</a>)
   {#else}
-  <a href="/auth/login">anmelden</a>
+  Um diese Funktionen nutzen zu können, musst du angemeldet sein. Gerne kannst du dir auch einen
+  Account selber erstellen:
+  <a href="/auth/login">Zum Login / Signup</a>
   {/if}
 
   {#if user.name}
