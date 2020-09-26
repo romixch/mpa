@@ -1,9 +1,7 @@
 package ch.romix.mpa.infra.session;
 
 import java.time.LocalDate;
-import javax.enterprise.context.RequestScoped;
 
-@RequestScoped
 public class SessionData {
 
   private int personCount;
