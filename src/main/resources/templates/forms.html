@@ -34,8 +34,8 @@
       <input id="person-count" name="person-count" type="number" value="{data.personCount}"
              up-validate=".person-count-errors, r-field:has([name=time])">
       <r-validtion-error class="person-count-errors">
-        {#if violations[personCount]}
-        {violations[personCount]}
+        {#if violations["personCount"]}
+        {violations["personCount"]}
         {/if}
       </r-validtion-error>
     </r-field>
@@ -44,8 +44,8 @@
       <vaadin-date-picker id="vaadinDate" value="{data.date}"></vaadin-date-picker>
       <input hidden id="date" name="date" value="{data.date}"/>
       <r-validtion-error class="date-validation">
-        {#if violations[date]}
-        {violations[date]}
+        {#if violations["date"]}
+        {violations["date"]}
         {/if}
       </r-validtion-error>
     </r-field>
@@ -61,8 +61,8 @@
         {/for}
       </fieldset>
       <r-validtion-error>
-        {#if violations[time]}
-        {violations[time]}
+        {#if violations["time"]}time
+        {violations[""]}
         {/if}
       </r-validtion-error>
     </r-field>
@@ -70,8 +70,8 @@
       <label for="firstname">Vorname:</label>
       <input id="firstname" name="firstname" type="text" value="{data.firstname}" up-validate>
       <r-validtion-error>
-        {#if violations[firstname]}
-        {violations[firstname]}
+        {#if violations["firstname"]}
+        {violations["firstname"]}
         {/if}
       </r-validtion-error>
     </r-field>
@@ -79,8 +79,8 @@
       <label for="lastname">Nachname:</label>
       <input id="lastname" name="lastname" type="text" value="{data.lastname}" up-validate>
       <r-validtion-error>
-        {#if violations[lastname]}
-        {violations[lastname]}
+        {#if violations["lastname"]}
+        {violations["lastname"]}
         {/if}
       </r-validtion-error>
     </r-field>
@@ -88,8 +88,8 @@
       <label for="zipcity">PLZ und Ort:</label>
       <input id="zipcity" name="zipcity" type="text" value="{data.zipcity}" up-validate>
       <r-validtion-error>
-        {#if violations[zipcity]}
-        {violations[zipcity]}
+        {#if violations["zipcity"]}
+        {violations["zipcity"]}
         {/if}
       </r-validtion-error>
     </r-field>
