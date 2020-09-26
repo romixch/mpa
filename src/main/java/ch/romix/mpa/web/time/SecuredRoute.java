@@ -92,7 +92,7 @@ public class SecuredRoute {
         environment.getAuth0ClientSecret());
 
     URI origin = OriginHandler.getOrigin(rc);
-    URI returnUrl = new URIBuilder(origin).setPath("/").removeQuery().build();
+    URI returnUrl = new URIBuilder(origin).setPath("/time").removeQuery().build();
 
     String logoutUrl = auth0.logoutUrl(returnUrl.toString(), true).build();
     rc.response().putHeader("location", logoutUrl).setStatusCode(302).end();
