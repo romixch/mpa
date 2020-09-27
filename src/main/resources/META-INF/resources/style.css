@@ -257,6 +257,18 @@ button:hover {
   right: 0px;
 }
 
-.table {display: table; }
+.table {
+  display: table;
+}
+.table-header-group {
+  display: table-header-group;
+  font-weight: bold;
+}
 .table-row {display: table-row; }
-.table-cell {display: table-cell; }
+.table-row:nth-child(odd) {
+  background: #eee;
+}
+.table-cell {
+  display: table-cell;
+  padding: 0.2em 0.5em;
+}

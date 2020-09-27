@@ -1,6 +1,13 @@
-{@java.util.Collection entries}
-
+{@java.util.Collection<ch.romix.mpa.domain.time.EntryEntity> entries}
+{@java.time.LocalDate currentDay}
   <div class="table entries-table">
+    <div class="table-header-group">
+      <div class="table-row">
+        <div class="table-cell">Datum</div>
+        <div class="table-cell">von</div>
+        <div class="table-cell">bis</div>
+      </div>
+    </div>
     {#for entry in entries}
     {#include time/entry /}
     {/for}
