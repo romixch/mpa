@@ -1,5 +1,5 @@
 {@ch.romix.mpa.domain.UserValueObject user}
-{@java.util.Collection<ch.romix.mpa.domain.time.EntryEntity> entries}
+{@java.util.Collection<ch.romix.mpa.domain.time.DayAggregate> dailyAggregates}
 {@java.time.LocalDate currentDay}
 {#include layout}
 {#title}Home{/title}
@@ -20,7 +20,7 @@
   {/if}
 
   {#if user.name}
-    {#include time/entries-table /}
+    {#include time/table /}
   {/if}
 </p>
 {/body}

@@ -1,4 +1,4 @@
-{@java.util.Collection<ch.romix.mpa.domain.time.EntryEntity> entries}
+{@java.util.Collection<ch.romix.mpa.domain.time.DayAggregate> dailyAggregates}
 {@java.time.LocalDate currentDay}
   <div class="table entries-table">
     <div class="table-header-group">
@@ -9,8 +9,8 @@
         <div class="table-cell">Dauer</div>
       </div>
     </div>
-    {#for entry in entries}
-    {#include time/entry /}
+    {#for day in dailyAggregates}
+    {#include time/day /}
     {/for}
     {#include time/new-entry /}
   </div>

@@ -1,0 +1,5 @@
+{@ch.romix.mpa.domain.time.DayAggregate day}
+
+{#for entry in day.entries}
+  {#include time/entry duration=day.duration /}
+{/for}
