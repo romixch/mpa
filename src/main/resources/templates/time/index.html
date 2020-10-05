@@ -18,10 +18,20 @@
   Account selber erstellen:
   <a href="/auth/login">Zum Login / Signup</a>
   {/if}
+</p>
 
   {#if user.name}
-    {#include time/table /}
+    <r-columns>
+      <r-column>
+        {#include time/table /}
+      </r-column>
+      <r-column>
+        <h2>Diesen Monat</h2>
+        Einige Statistiken zum aktuellen Monat
+        <h2>Dieses Jahr</h2>
+        Und zu diesem Jahr
+      </r-column>
+    </r-columns>
   {/if}
-</p>
 {/body}
 {/include}

@@ -1,5 +1,6 @@
 package ch.romix.mpa.web.time;
 
+import ch.romix.mpa.domain.time.EntryEntity.TimeType;
 import io.vertx.core.MultiMap;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -14,6 +15,7 @@ public class TimeAddPostData {
   LocalTime parsedStart;
   String end;
   LocalTime parsedEnd;
+  TimeType timeType;
 
   public TimeAddPostData(MultiMap formAttributes) {
     day = formAttributes.get("day");
@@ -34,5 +36,6 @@ public class TimeAddPostData {
     } catch (DateTimeParseException e) {
       parsedEnd = null;
     }
+    timeType = TimeType.valueOf(formAttributes.get("timeType"));
   }
 }

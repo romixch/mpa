@@ -68,7 +68,7 @@ r-slide-nav * {
   margin-right: 1em;
 }
 
-r-two-columns {
+r-columns {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -78,11 +78,14 @@ r-two-columns {
   justify-content: flex-start;
 }
 
-r-two-columns ul, r-two-columns r-programmer-portrait {
+r-columns r-column {
   flex-grow: 1;
   flex-shrink: 1;
   margin-left: 0;
   margin-top: 1rem;
+}
+
+r-programmer-portrait p {
   max-width: 500px;
 }
 

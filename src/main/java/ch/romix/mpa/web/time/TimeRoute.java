@@ -54,7 +54,7 @@ public class TimeRoute {
     TimeAddPostData data = new TimeAddPostData(rc.request().formAttributes());
     UserValueObject user = rc.session().get("user");
     EntryEntity entryEntity = new EntryEntity(UUID.randomUUID().toString(), user.getName(),
-        data.parsedDay, data.parsedStart, data.parsedEnd);
+        data.parsedDay, data.parsedStart, data.parsedEnd, data.timeType);
     entryRepository.add(entryEntity);
     redirectTo(rc, "/time");
     } catch (ClassCastException ex) {

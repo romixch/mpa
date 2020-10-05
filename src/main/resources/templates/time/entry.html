@@ -4,13 +4,16 @@
 <div class="table-row">
   <div class="table-cell">
     {#if index eq 0}
-      {entry.day.format}
+    {entry.day.format}
     {/if}
-    </div>
+  </div>
   <div class="table-cell">{entry.start}</div>
   <div class="table-cell">{entry.end}</div>
   <div class="table-cell">{entry.duration.toHours()}h {entry.duration.toMinutesPart()}m</div>
-  {#if !hasNext}
+  <div class="table-cell">{entry.timeType}</div>
+  <div class="table-cell">
+    {#if !hasNext}
     {duration.toHours()}h {duration.toMinutesPart()}m
-  {/if}
+    {/if}
+  </div>
 </div>

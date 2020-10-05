@@ -38,20 +38,24 @@
     <input type="search" name="search" placeholder="Suche nach Namen"
            up-autosubmit/>
   </form>
-  <r-two-columns>
-    <ul class="filter-list">
-      {#for programmer in data.list}
-      <li><a href="?search={data.searchTerm}&programmer={programmer}"
-             up-target="r-programmer-portrait">{programmer}</a></li>
-      {/for}
-    </ul>
-    <r-programmer-portrait>
-      {#if data.wikipediaData != null}
-      {data.wikipediaData.raw}
-      <r-quelle>Quelle: <a href="{data.wikipediaUrl}">{data.wikipediaUrl}</a></r-quelle>
-      {/if}
-    </r-programmer-portrait>
-  </r-two-columns>
+  <r-columns>
+    <r-column>
+      <ul class="filter-list">
+        {#for programmer in data.list}
+        <li><a href="?search={data.searchTerm}&programmer={programmer}"
+              up-target="r-programmer-portrait">{programmer}</a></li>
+        {/for}
+      </ul>
+    </r-column>
+    <r-column>
+      <r-programmer-portrait>
+        {#if data.wikipediaData != null}
+        {data.wikipediaData.raw}
+        <r-quelle>Quelle: <a href="{data.wikipediaUrl}">{data.wikipediaUrl}</a></r-quelle>
+        {/if}
+      </r-programmer-portrait>
+    </r-column>
+  </r-columns>
 </div>
 {/body}
 {/include}
