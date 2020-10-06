@@ -6,15 +6,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import javax.validation.constraints.NotNull;
 
 public class TimeAddPostData {
 
   String day;
+  @NotNull
   LocalDate parsedDay;
   String start;
+  @NotNull
   LocalTime parsedStart;
   String end;
+  @NotNull
   LocalTime parsedEnd;
+  @NotNull
   TimeType timeType;
 
   public TimeAddPostData(MultiMap formAttributes) {

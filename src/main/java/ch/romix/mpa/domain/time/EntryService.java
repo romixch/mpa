@@ -2,6 +2,8 @@ package ch.romix.mpa.domain.time;
 
 import static java.util.stream.Collectors.groupingBy;
 
+import ch.romix.mpa.domain.time.EntryEntity.TimeType;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
@@ -14,5 +16,12 @@ public class EntryService {
     return grouped.entrySet().stream()
         .map((entry) -> new DayAggregate(entry.getKey(), entry.getValue())).collect(
             Collectors.toList());
+  }
+
+  public static Duration total(TimeType type, Collection<EntryEntity> entries) {
+    return entries.stream()
+        .filter(entry -> type.equals(entry.timeType))
+        .map(entry -> entry.duration)
+        .reduce(Duration.ZERO, Duration::plus);
   }
 }

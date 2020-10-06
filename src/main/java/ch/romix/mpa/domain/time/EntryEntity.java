@@ -26,7 +26,7 @@ public class EntryEntity {
 
   }
   public enum TimeType {
-    WORKTIME, FREETIME
+    WORKTIME, SPARETIME
   }
 }
 

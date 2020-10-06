@@ -1,6 +1,7 @@
 {@ch.romix.mpa.domain.UserValueObject user}
 {@java.util.Collection<ch.romix.mpa.domain.time.DayAggregate> dailyAggregates}
 {@java.time.LocalDate currentDay}
+{@ch.romix.mpa.web.time.StatisticsTemplateData stats}
 {#include layout}
 {#title}Home{/title}
 {#body}
@@ -26,10 +27,11 @@
         {#include time/table /}
       </r-column>
       <r-column>
-        <h2>Diesen Monat</h2>
-        Einige Statistiken zum aktuellen Monat
-        <h2>Dieses Jahr</h2>
-        Und zu diesem Jahr
+        <h2>Statistik</h2>
+        <ul>
+          <li>Total Arbeitszeit: {stats.worktimeTotal.toHours()}h {stats.worktimeTotal.toMinutesPart()}m</li>
+          <li>Total Freizeit: {stats.sparetimeTotal.toHours()}h {stats.sparetimeTotal.toMinutesPart()}m</li>
+        </ul>
       </r-column>
     </r-columns>
   {/if}
