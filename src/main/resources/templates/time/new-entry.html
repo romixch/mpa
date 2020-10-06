@@ -2,8 +2,8 @@
 <form class="table-row" method="post" action="/time/add" enctype="multipart/form-data"
       up-target="main">
   <div class="table-cell">
-    {currentDay.format}
-    <input name="day" value="{currentDay}" type="hidden">
+    <vaadin-date-picker id="timeDayPicker" value="{currentDay}"></vaadin-date-picker>
+    <input id="day" name="day" value="{currentDay}" type="hidden">
   </div>
   <div class="table-cell"><input name="start" type="time"/></div>
   <div class="table-cell"><input name="end" type="time"/></div>

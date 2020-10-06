@@ -12,3 +12,14 @@ up.compiler('#vaadinDate', {}, () => {
     up.validate(dateInput);
   });
 });
+
+up.compiler('#timeDayPicker', {}, () => {
+  const vaadinDate: any = document.getElementById('timeDayPicker');
+  vaadinDate.i18n = i18nDatePicker;
+  const dateInput: any = document.getElementById('day');
+  vaadinDate.addEventListener('change', () => {
+    console.log('setting date to ', vaadinDate.value);
+    dateInput.value = vaadinDate.value;
+  });
+});
+
